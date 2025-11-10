@@ -1,0 +1,1 @@
+/* Função: Definir o fluxo de navegação entre as telas disponiveis em Tab Navigator: Explorar, Reservas, Perfil, */
