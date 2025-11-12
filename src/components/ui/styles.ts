@@ -27,13 +27,50 @@ export const global = StyleSheet.create({
         marginTop: height * 0.007
     },
     content: {
-        backgroundColor: "#1c64cfff",
+        backgroundColor: "#80dffcff",
         alignItems: "center",
         borderRadius: "10",
         padding: width * 0.02,
-        shadowColor: "#ff0000ff",
-        shadowOpacity: 0.06,
+        shadowColor: "#000",
+        shadowOpacity: 0.05,
         shadowRadius: 10,
         elevation: 2
     },
+    // Inputs
+    inputGroup: {
+        marginBottom: height * 0.02,
+    },
+    label: {
+        fontSize: 14,
+        fontWeight: "600",
+        color: "#374151",
+        marginBottom: height * 0.01
+    },
+    inputIcon: {
+        backgroundColor: "#fff",
+        paddingLeft: width * 0.02,
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "#001f52ff",
+        borderRadius: 10
+    },
+    inputError: {
+        backgroundColor: "#458cffff",
+        borderColor: "#010ec9ff",
+    },
+    input: {
+        backgroundColor: "#green",
+        flex: 1,
+        fontSize: 16,
+        color: "#000",
+        fontWeight: "600",
+        paddingHorizontal: width * 0.02
+    },
+    errorText: {
+        color: "red",
+        fontWeight: "600",
+        fontSize: 13,
+        marginTop: height * 0.01
+    }
 })
