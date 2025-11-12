@@ -5,3 +5,15 @@ push(): Empilha uma tela acima da outra
 back(): Volta para a tela anterior
 replace(): Substitui a tela por outra
 */
+
+import { Stack } from "expo-router";
+
+export default function AuthLayout() {
+    return (
+        <Stack screenOptions={{headerShown: true}}>
+            <Stack.Screen name="index" options={{ title: "Login" }}/>
+            { /* <Stack.Screen name="register" options={{ title: "Cadastro" }}/> */ }
+            { /*<Stack.Screen name="resetPassword" options={{ title: "Esqueci minha senha" }}/> */}
+        </Stack>
+    )
+}
