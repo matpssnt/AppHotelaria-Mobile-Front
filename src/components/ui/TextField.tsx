@@ -10,7 +10,7 @@ type Props = TextInputProps & {
 }
 
 
-const TextField = ({label, errorText, icon, ...restInputProps} : Props ) => {
+const TextField = ({label, errorText, icon, ...props} : Props ) => {
 
     return (
         <View style={global.inputGroup}>
@@ -25,7 +25,7 @@ const TextField = ({label, errorText, icon, ...restInputProps} : Props ) => {
                     keyboardAppearance="dark"
                     placeholderTextColor="#9ca3af"
                     style={[global.input]}
-                    /* const TextField = ({label, errorText, icon, ...restInputProps} : Props) = {
+                    /* const TextField = ({label, errorText, icon, ...props} : Props) = {
                         const style = props.style;
                         const value = props.value;
                         const onChangeText = props.onChangeText;
@@ -33,14 +33,14 @@ const TextField = ({label, errorText, icon, ...restInputProps} : Props ) => {
                         const autoCapitalize = props.autoCapitalize;
                         const KeyboardType = props.KeyboardType;
                        } */
-                    {...restInputProps}
+                    {...props}
                 />
             </View>
             {!! errorText &&
                 <Text style={global.errorText}>{errorText}</Text>
             }
         </View>
-    )
+    );
 }
 
 export default TextField;

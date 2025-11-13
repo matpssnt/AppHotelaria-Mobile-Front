@@ -10,12 +10,11 @@ export const global = StyleSheet.create({
     },
     container: {
         paddingHorizontal: width * 0.07,
-        paddingTop: height * 0.08,
-        paddingBottom: height * 0.07
+        paddingVertical: height * 0.07
     },
     header:{
         alignItems: "center",
-        paddingBottom: 32
+        marginBottom: height * 0.03
     },
     title: {
         fontSize: 28,
@@ -24,11 +23,10 @@ export const global = StyleSheet.create({
     subtitle: {
         fontSize: 17,
         color: "#02357ee5",
-        marginTop: height * 0.007
+        marginTop: height * 0.01
     },
     content: {
-        backgroundColor: "#80dffcff",
-        alignItems: "center",
+        backgroundColor: "#5dd9ff9c",
         borderRadius: "10",
         padding: width * 0.02,
         shadowColor: "#000",
@@ -41,7 +39,7 @@ export const global = StyleSheet.create({
         marginBottom: height * 0.02,
     },
     label: {
-        fontSize: 14,
+        fontSize: 17,
         fontWeight: "600",
         color: "#374151",
         marginBottom: height * 0.01
@@ -55,6 +53,11 @@ export const global = StyleSheet.create({
         borderColor: "#001f52ff",
         borderRadius: 10
     },
+    eyeIcon: {
+        position: "absolute",
+        right: 12,
+        top: 43,
+    },
     inputError: {
         backgroundColor: "#458cffff",
         borderColor: "#010ec9ff",
@@ -62,7 +65,7 @@ export const global = StyleSheet.create({
     input: {
         backgroundColor: "#green",
         flex: 1,
-        fontSize: 16,
+        fontSize: 17,
         color: "#000",
         fontWeight: "600",
         paddingHorizontal: width * 0.02
@@ -70,7 +73,22 @@ export const global = StyleSheet.create({
     errorText: {
         color: "red",
         fontWeight: "600",
-        fontSize: 13,
+        fontSize: 15,
         marginTop: height * 0.01
+    },
+
+    primaryButton: {
+        backgroundColor: "#36a8ebff",
+        borderRadius: 18,
+        padding: width * 0.025,
+        marginTop: width * 0.02,
+        alignItems: "center"
+    },
+    primaryButtonDisableB: {
+        backgroundColor: "#253241ff",
+         borderRadius: 10
+    },
+    primaryButtonText: {
+        color: "#eef5faff"
     }
 })
