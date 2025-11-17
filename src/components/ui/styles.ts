@@ -84,11 +84,13 @@ export const global = StyleSheet.create({
         marginTop: width * 0.02,
         alignItems: "center"
     },
-    primaryButtonDisableB: {
+    primaryButtonDisable: {
         backgroundColor: "#253241ff",
          borderRadius: 10
     },
     primaryButtonText: {
-        color: "#eef5faff"
+        color: "#eef5faff",
+        fontSize: 17,
+        fontWeight: 600
     }
 })
