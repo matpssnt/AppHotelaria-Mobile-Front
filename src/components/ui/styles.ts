@@ -10,7 +10,8 @@ export const global = StyleSheet.create({
     },
     container: {
         paddingHorizontal: width * 0.07,
-        paddingVertical: height * 0.07
+        paddingVertical: height * 0.07,
+        flexGrow: 1
     },
     header:{
         alignItems: "center",
@@ -23,7 +24,8 @@ export const global = StyleSheet.create({
     subtitle: {
         fontSize: 17,
         color: "#02357ee5",
-        marginTop: height * 0.01
+        marginTop: height * 0.01,
+        textAlign: "center"
     },
     content: {
         backgroundColor: "#5dd9ff9c",

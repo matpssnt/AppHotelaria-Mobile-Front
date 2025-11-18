@@ -11,6 +11,10 @@ const RenderLogin = () => {
 
     const { width, height } = Dimensions.get("window");
 
+    const handleLogin = () => {
+        router.replace("/(tabs)/reservations")
+    }
+
     return (
         <AuthContainer
             title="Bem-vindo"
@@ -20,18 +24,18 @@ const RenderLogin = () => {
             {/* children */}
             <TextField
                 label="E-mail"
-                icon="email"
+                icon={{lib: "MaterialIcons", name: "email"}}
                 placeholder="user@email.com"
                 keyboardType="email-address">
             </TextField>
 
             <PasswordField
                 label="Senha"
-                icon="lock"
+                icon={{lib: "MaterialIcons", name: "lock"}}
                 placeholder="************"
             />
 
-            <TouchableOpacity style={[global.primaryButton]}>
+            <TouchableOpacity onPress={handleLogin} style={[global.primaryButton]}>
                 <Text style={global.primaryButtonText}>Entrar</Text>
             </TouchableOpacity>
 
@@ -45,7 +49,7 @@ const RenderLogin = () => {
                 <TouchableOpacity onPress={() => router.push("/(auth)/register")} style={{ marginTop: height * 0.02}}>
                     <Text style={{color: "#253241ff", fontWeight: 600, fontSize: 17}}>Não possui uma conta? Cadastre-se</Text>
                 </TouchableOpacity>
-            </View>,
+            </View>
 
         </AuthContainer>
     )

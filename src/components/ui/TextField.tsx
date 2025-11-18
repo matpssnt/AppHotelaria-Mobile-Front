@@ -4,13 +4,13 @@ import { Text, TextInput, TextInputProps, View } from "react-native";
 import { global } from "./styles";
 
 type NameIcon = 
-    | {lib: "MaterialIcons"};
+    | {lib: "MaterialIcons"; name: keyof typeof MaterialIcons.glyphMap}
+    | {lib: "FontAwesome6"; name: keyof typeof FontAwesome6.glyphMap};
 
 type Props = TextInputProps & {
     label: string;
     errorText?: string;
-    // lib?: IconLibrary,
-    icon?: keyof typeof MaterialIcons.glyphMap;
+    icon?: NameIcon;
 }
 
 
@@ -22,7 +22,12 @@ const TextField = ({label, errorText, icon, ...props} : Props ) => {
             <View style={[global.inputIcon, errorText ? global.inputError : null]}>
                 {!! icon && (
                     <View>
-                        <MaterialIcons name={icon} size={20} color="#000252ff"/>
+                        {icon.lib === "MaterialIcons" && (
+                        <MaterialIcons name={icon.name} size={20} color="#000252ff"/>
+                        )}
+                        {icon.lib === "FontAwesome6" && (
+                        <FontAwesome6 name={icon.name} size={17} color="#000252ff"/>
+                        )}
                     </View>
                 )}
                 <TextInput

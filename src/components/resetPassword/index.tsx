@@ -1,48 +1,53 @@
 import { TouchableOpacity, Text, View, Dimensions } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+
 import AuthContainer from "../ui/AuthContainer"
 import TextField from "../ui/TextField";
-import PasswordField from "../ui/PasswordField";
 import { global } from "../ui/styles";
 
 const ResetPassword = () => {
-   const { width, height } = Dimensions.get("window");
+    
+    const router = useRouter();
 
-   return (
-       <AuthContainer
-           title="Bem-vindo"
-           subtitle="Faça seu login para continuar!"
-           icon="hotel">        
-           {/* children */}
-           <TextField
-               label="E-mail"
-               icon="email"
-               placeholder="user@email.com"
-               keyboardType="email-address">
-           </TextField>
+    const { width, height } = Dimensions.get("window");
 
-           <PasswordField
-               label="Senha"
-               icon="lock"
-               placeholder="************"
-           />
+    const handleBack = () => {
+        router.back();
+    }
 
-           <TouchableOpacity style={[global.primaryButton]}>
-               <Text style={global.primaryButtonText}>Entrar</Text>
-           </TouchableOpacity>
+    return (
+        <View style={{flex: 1}}>
+            <TouchableOpacity onPress={handleBack} style={{position: 'absolute', top: 60, left: 20, zIndex: 10, padding: 8}}>
+                <MaterialIcons name="arrow-back-ios-new" size={24} color='#000'/>
+            </TouchableOpacity>
 
-           <View style={{alignItems: "center", marginTop: height * 0.02}}>
-               <TouchableOpacity>
-                   <Text style={{color: "#253241ff", fontSize: 17, marginBottom: 1, textDecorationLine: "underline"}}>Esqueci minha senha</Text>
+            <AuthContainer
+               title="Redefinição de senha"
+               subtitle="Informe seu e-mail para qual deseja redefinir a sua senha"
+               icon="lock">    
+
+               {/* children */}
+               <TextField
+                   label="E-mail"
+                   icon={{lib: "MaterialIcons", name: "email"}}
+                   placeholder="user@email.com"
+                   keyboardType="email-address">
+               </TextField>
+
+               <TouchableOpacity style={[global.primaryButton]}>
+                   <Text style={global.primaryButtonText}>Redefinir senha</Text>
                </TouchableOpacity>
 
-               <View style={{backgroundColor: "#000", width: width * 0.5, height: height * 0.001, borderRadius: 10, marginTop: height * 0.03}}></View>            
-               <TouchableOpacity style={{ marginTop: height * 0.02}}>
-                   <Text style={{color: "#253241ff", fontWeight: 600, fontSize: 17}}>Não possui uma conta? Cadastre-se</Text>
-               </TouchableOpacity>
-           </View>,
+               <View style={{alignItems: "center", marginTop: height * 0.02}}>
+                   <TouchableOpacity onPress={() => router.push("/(auth)")}>
+                       <Text style={{color: "#253241ff", fontSize: 17, marginBottom: 1, textDecorationLine: "underline"}}>Voltar ao Login</Text>
+                   </TouchableOpacity>
+               </View>
 
-       </AuthContainer>
-   )
+           </AuthContainer>
+        </View>
+    )
 }
 
 export default ResetPassword;
