@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 // import { global } from "@/components/ui/styles";
 
-export default function reservations() {
+const reservations = () => {
     return (
         <View style={styles.container}>
             <Text>Reservas</Text>
@@ -17,3 +17,5 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }
 });
+
+export default reservations;

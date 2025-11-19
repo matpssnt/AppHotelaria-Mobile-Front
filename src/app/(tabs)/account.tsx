@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 // import { global } from "@/components/ui/styles";
 
-export default function Account() {
+const Account = () => {
     return (
         <View style={styles.container}>
             <Text>Perfil</Text>
@@ -17,3 +17,5 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }
 });
+
+export default Account;

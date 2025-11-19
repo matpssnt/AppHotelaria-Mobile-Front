@@ -94,5 +94,26 @@ export const global = StyleSheet.create({
         color: "#eef5faff",
         fontSize: 17,
         fontWeight: 600
+    },
+    centerView: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22
+    },
+    modalView: {
+        margin: 150,
+        backgroundColor: "#97abc5ff",
+        borderRadius:20,
+        width: '90%',
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000000ff',
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
     }
 })

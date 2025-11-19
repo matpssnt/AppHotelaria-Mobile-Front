@@ -1,11 +1,13 @@
 import { View, Text, StyleSheet } from "react-native";
 
+import RenderDatePicker from "@/components/ui/DatePicker";
 // import { global } from "@/components/ui/styles";
 
-export default function Explorer() {
+const Explorer = () => {
     return (
         <View style={styles.container}>
-            <Text>Explorar</Text>
+            <RenderDatePicker label="Data de check-in"/>
+            <RenderDatePicker label="Data de check-out"/>
         </View>
     );
 }
@@ -17,3 +19,5 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }
 });
+
+export default Explorer;
