@@ -1,21 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
+import RenderReservations from "@/components/reservations";
 
-// import { global } from "@/components/ui/styles";
-
-const reservations = () => {
+const Reservations = () => {
     return (
-        <View style={styles.container}>
-            <Text>Reservas</Text>
-        </View>
+        <RenderReservations />
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-});
-
-export default reservations;
+export default Reservations;

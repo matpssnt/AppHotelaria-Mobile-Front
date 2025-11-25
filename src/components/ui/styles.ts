@@ -29,13 +29,14 @@ export const global = StyleSheet.create({
     },
     content: {
         backgroundColor: "#5dd9ff9c",
-        borderRadius: "10",
+        borderRadius: 10,
         padding: width * 0.02,
         shadowColor: "#000",
         shadowOpacity: 0.05,
         shadowRadius: 10,
         elevation: 2
     },
+
     // Inputs
     inputGroup: {
         marginBottom: height * 0.02,
@@ -65,7 +66,6 @@ export const global = StyleSheet.create({
         borderColor: "#010ec9ff",
     },
     input: {
-        backgroundColor: "#green",
         flex: 1,
         fontSize: 17,
         color: "#000",
@@ -78,7 +78,6 @@ export const global = StyleSheet.create({
         fontSize: 15,
         marginTop: height * 0.01
     },
-
     primaryButton: {
         backgroundColor: "#36a8ebff",
         borderRadius: 18,
@@ -93,8 +92,10 @@ export const global = StyleSheet.create({
     primaryButtonText: {
         color: "#eef5faff",
         fontSize: 17,
-        fontWeight: 600
+        fontWeight: '600'
     },
+
+    // DatePicker
     centerView: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -103,8 +104,8 @@ export const global = StyleSheet.create({
     modalView: {
         margin: 150,
         backgroundColor: "#97abc5ff",
-        borderRadius:20,
-        width: '90%',
+        borderRadius: 20,
+        width: width * 0.9,
         padding: 35,
         alignItems: 'center',
         shadowColor: '#000000ff',
@@ -115,5 +116,33 @@ export const global = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
+    },
+    datePickerContainer: {
+        flex: 1,
+        margin: 5
+    },
+    dateButton: {
+        padding: 15,
+        backgroundColor: '#f0f0f0ff',
+        borderRadius: 8,
+        margin: 5
+    },
+    dateText: {
+        fontSize: 16,
+        color: '#333333ff',
+        marginTop: 5
+    },
+    closeButton: {
+        backgroundColor: '#36a8ebff',
+        padding: 15,
+        borderRadius: 10,
+        marginTop: 10,
+        alignItems: 'center',
+        width: '100%'
+    },
+    closeButtonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold'
     }
-})
+});

@@ -6,7 +6,7 @@ import { global } from './styles';
 
 
 type Props = {
-    title: string;
+    title?: string;
     subtitle?: string;
     icon?: keyof typeof FontAwesome6.glyphMap;
     children: React.ReactNode;
@@ -18,9 +18,11 @@ const AuthContainer = ({title, subtitle, icon, children}: Props) => {
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : "height"} style={global.keyboardAvoinding}>
                 <ScrollView style={global.container}>
                     <View style={global.header}>
+
                         {!! icon && <FontAwesome6 name={icon} size={25} color="#0066ffe3" />}
-                        <Text style={global.title}>{title}</Text>
+                        {!! title && <Text style={global.title}>{title}</Text>}
                         {!! subtitle && <Text style={global.subtitle}>{subtitle}</Text>}
+                        
                     </View>
 
                     <View style={global.content}>

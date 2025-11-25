@@ -2,7 +2,7 @@
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
-export default function TabLayout() {
+const TabLayout = () => {
     return (
         <Tabs screenOptions={{ tabBarActiveTintColor: '#36a8ebff' }}>
             <Tabs.Screen name="reservations" options={{title: 'Reservas', tabBarIcon: ({ color }) => 
@@ -19,3 +19,5 @@ export default function TabLayout() {
         </Tabs>
     );
 }
+
+export default TabLayout;
