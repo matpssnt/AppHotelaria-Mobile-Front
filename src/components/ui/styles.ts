@@ -96,53 +96,53 @@ export const global = StyleSheet.create({
     },
 
     // DatePicker
-    centerView: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 22
-    },
-    modalView: {
-        margin: 150,
-        backgroundColor: "#97abc5ff",
-        borderRadius: 20,
-        width: width * 0.9,
-        padding: 35,
-        alignItems: 'center',
-        shadowColor: '#000000ff',
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    datePickerContainer: {
-        flex: 1,
-        margin: 5
-    },
-    dateButton: {
-        padding: 15,
-        backgroundColor: '#f0f0f0ff',
-        borderRadius: 8,
-        margin: 5
-    },
-    dateText: {
-        fontSize: 16,
-        color: '#333333ff',
-        marginTop: 5
-    },
-    closeButton: {
-        backgroundColor: '#36a8ebff',
-        padding: 15,
-        borderRadius: 10,
-        marginTop: 10,
-        alignItems: 'center',
-        width: '100%'
-    },
-    closeButtonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold'
-    }
+    // centerView: {
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     marginTop: 22
+    // },
+    // modalView: {
+    //     margin: 150,
+    //     backgroundColor: "#97abc5ff",
+    //     borderRadius: 20,
+    //     width: width * 0.9,
+    //     padding: 20,
+    //     alignItems: 'center',
+    //     shadowColor: '#000000ff',
+    //     shadowOffset: {
+    //         width: 0,
+    //         height: 2
+    //     },
+    //     shadowOpacity: 0.25,
+    //     shadowRadius: 4,
+    //     elevation: 5
+    // },
+    // datePickerContainer: {
+    //     flex: 1,
+    //     margin: 5
+    // },
+    // dateButton: {
+    //     padding: 15,
+    //     backgroundColor: '#f0f0f0ff',
+    //     borderRadius: 8,
+    //     margin: 5
+    // },
+    // dateText: {
+    //     fontSize: 16,
+    //     color: '#333333ff',
+    //     marginTop: 5
+    // },
+    // closeButton: {
+    //     backgroundColor: '#36a8ebff',
+    //     padding: 15,
+    //     borderRadius: 10,
+    //     marginTop: 10,
+    //     alignItems: 'center',
+    //     width: '100%'
+    // },
+    // closeButtonText: {
+    //     color: 'white',
+    //     fontSize: 16,
+    //     fontWeight: 'bold'
+    // }
 });

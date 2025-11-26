@@ -1,23 +1,25 @@
 import React, { useState } from "react"
-import { Modal, TouchableOpacity, View, Text, Platform } from "react-native";
-import DatePicker, {getFormatedDate} from "react-native-modern-datepicker";
+import { Modal, TouchableOpacity, View, Text, Platform, Dimensions } from "react-native";
+import DatePicker, {getToday} from "react-native-modern-datepicker";
 
 import { global } from "./styles";
 
 type Props = {
-    label?: string;
-    onDateChange?: (date: string) => void;
+    onDateChange: (date: string) => void;
 }
 
-const RenderDatePicker = ({label, onDateChange}: Props) => {
+const RenderDatePicker = ({ onDateChange}: Props) => {
 
+    const { width, height } = Dimensions.get('window');
+
+    const today = getToday();
+    // const tomorrow = new Date(today);
+    // tomorrow.setDate(today.getDate() + 1);
+    // const startDate = getFormatedDate(tomorrow, 'YYYY/MM/DD h:m');
+
+    
     const [open, setOpen] = useState(false);
-    const [date, setDate] = useState("01-01-2024");
-
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    const startDate = getFormatedDate(tomorrow, 'YYYY/MM/DD');
+    const [date, setDate] = useState('');
 
     const handlePress = () => {
         setOpen(!open);
@@ -27,25 +29,27 @@ const RenderDatePicker = ({label, onDateChange}: Props) => {
         setOpen(false);
     }
 
-    const handleChange = (propDate: string) => {
-        console.log('Data selecionada:', propDate);
-        setDate(propDate);
-        onDateChange?.(propDate);
-    };
+    // const handleChange = (propDate: string) => {
+    //     console.log('Data selecionada:', propDate);
+    //     setDate(propDate);
+    //     onDateChange?.(propDate);
+    // };
 
     return (
-        <View style={global.datePickerContainer}>
-            <TouchableOpacity onPress={handlePress} style={global.dateButton}>
-                <Text style={global.subtitle}>{label}</Text>
+        <View>
+        {/* <View style={global.datePickerContainer}> */}
+            {/* <TouchableOpacity onPress={handlePress} style={global.dateButton}>
                 <Text style={global.dateText}>{date}</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
-            <Modal animationType="slide" transparent={true} visible={open}>
-                <View style={global.centerView}>
-                    <View style={global.modalView}>
+            {/* <Modal animationType="slide" transparent={true} visible={open}> */}
+                {/* <View style={global.centerView}>
+                    <View style={global.modalView}> */}
+                <View>
+                    <View>
 
                         <DatePicker 
-                        isGregorian={true} 
+                        mode="calendar" 
                         options={{
                             backgroundColor: "#e3f4fcff", 
                             textHeaderColor: "#000", 
@@ -55,21 +59,23 @@ const RenderDatePicker = ({label, onDateChange}: Props) => {
                             textSecondaryColor: "#1485c7ff", 
                             borderColor: '#259ce0ff'
                         }}
-                        mode="calendar" 
-                        selected={date} 
-                        minimumDate={startDate} 
-                        onSelectedChange={handleChange} 
+                        isGregorian={true} 
+                        minimumDate={today} 
+                        onSelectedChange={(date) => {
+                            onDateChange(date);
+                        }} 
                         minuteInterval={30} 
                         style={{borderRadius: 10}}
                         />
 
-                        <TouchableOpacity onPress={handleClose} style={global.closeButton}>
+                        
+                        {/* <TouchableOpacity onPress={handleClose} style={global.closeButton}>
                             <Text style={global.closeButtonText}>Close</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     
                     </View>
                 </View>
-            </Modal>
+            {/* </Modal> */}
         </View>
     );
 

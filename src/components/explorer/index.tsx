@@ -1,7 +1,8 @@
-import { View, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { View, TouchableOpacity, Dimensions } from "react-native";
+import { useState } from "react";
 
 import AuthContainer from "../ui/AuthContainer";
+import TextField from "../ui/TextField";
 import RenderDatePicker from "../ui/DatePicker";
 import RoomCard from "../ui/RoomCard";
 
@@ -9,31 +10,60 @@ import { global } from "../ui/styles";
 
 const RenderExplorer = () => {
 
-    const handleCheckinChange = (date: string) => {
-        console.log('Check-in selecionado: ', date)
-    }
+    const { width, height } = Dimensions.get('window');
 
-    const handleCheckoutChange = (date: string) => {
-        console.log('Check-out selecionado: ', date)
-    }
+    const [checkIn, setCheckIn] = useState("");
+    const [checkOut, setCheckOut] = useState("");
+
+    const [calendar, setCalendar] = useState<"checkin" | "checkout"> ();
 
     return (
-        <ScrollView>
-            <SafeAreaView style={global.safeArea}>
+        <AuthContainer>
                 {/* children */}
                 <View style={global.container}>
-                    <View style={{flex:1, flexDirection:"row", backgroundColor:"#d5fcfd62", borderRadius: 10}}>
-                        <RenderDatePicker label="Data de check-in" onDateChange={handleCheckinChange}/>
-                        <RenderDatePicker label="Data de check-out" onDateChange={handleCheckoutChange}/>
-                    </View>
-                    <ScrollView horizontal={true}>
-                        <RoomCard />
-                        <RoomCard />
-                        <RoomCard />
-                    </ScrollView>
+                    <TouchableOpacity onPress={() => setCalendar('checkin')}>
+                        <TextField
+                            label='Check-in'
+                            icon={{lib: 'MaterialIcons', name: 'calendar-month'}}
+                            placeholder="Selecione a data"
+                            value={checkIn}
+                        />
+                            
+                            {/* <View style={{flex:1, flexDirection:"row", backgroundColor:"#d5fcfd62", borderRadius: 10}}>
+                                <RenderDatePicker onDateChange={handleCheckinChange}/>
+                                <RenderDatePicker onDateChange={handleCheckoutChange}/>
+                            </View>
+                            <ScrollView horizontal={true}>
+                                <RoomCard />
+                                <RoomCard />
+                                <RoomCard />
+                            </ScrollView> */}
+                        
+                    </TouchableOpacity>
+
+                    {calendar === 'checkin' && (
+                        <RenderDatePicker onDateChange={(date) => {
+                            setCheckIn(date);
+                        }}/>
+                    )}
+
+                    <TouchableOpacity onPress={() => setCalendar('checkout')}>
+                        <TextField
+                            label="Check-out"
+                            icon={{lib: 'MaterialIcons', name: 'calendar-month'}}
+                            placeholder="Selecione a data"
+                            value={checkOut}
+                        />
+                    </TouchableOpacity>
+
+                    {calendar === 'checkout' && (
+                        <RenderDatePicker onDateChange={(date) => {
+                            setCheckOut(date);
+                        }}/>
+                    )}
+
                 </View>
-            </SafeAreaView>
-        </ScrollView>
+        </AuthContainer>
     );
 }
 

@@ -14,7 +14,7 @@ type Props = TextInputProps & {
 }
 
 
-const TextField = ({label, errorText, icon, ...props} : Props ) => {
+const TextField = ({label, errorText, icon, style, ...props} : Props ) => {
 
     return (
         <View style={global.inputGroup}>
@@ -22,18 +22,17 @@ const TextField = ({label, errorText, icon, ...props} : Props ) => {
             <View style={[global.inputIcon, errorText ? global.inputError : null]}>
                 {!! icon && (
                     <View>
-                        {icon.lib === "MaterialIcons" && (
+                        {icon.lib === "MaterialIcons" ? (
                         <MaterialIcons name={icon.name} size={20} color="#000252ff"/>
-                        )}
-                        {icon.lib === "FontAwesome6" && (
-                        <FontAwesome6 name={icon.name} size={17} color="#000252ff"/>
-                        )}
+                        ) : icon.lib === "FontAwesome6" ? (
+                        <FontAwesome6 name={icon.name} size={20} color="#000252ff"/>
+                        ): null}
                     </View>
                 )}
                 <TextInput
                     keyboardAppearance="dark"
                     placeholderTextColor="#9ca3af"
-                    style={[global.input]}
+                    style={[global.input, style]}
                     /* const TextField = ({label, errorText, icon, ...props} : Props) = {
                         const style = props.style;
                         const value = props.value;
