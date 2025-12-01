@@ -1,52 +1,73 @@
-import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { FontAwesome5, FontAwesome6, MaterialIcons } from "@expo/vector-icons";
+import { View, Image, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { global } from "./styles";
 
-const RoomCard = () => {
+type Infos = { title?: string; text: string; price: number }
+
+type NameIcons = 
+    | { lib: "MaterialIcons"; name: keyof typeof MaterialIcons.glyphMap }
+    | { lib: "FontAwesome5"; name: keyof typeof FontAwesome5.glyphMap }
+    | { lib: "FontAwesome6"; name: keyof typeof FontAwesome6.glyphMap }
+
+type Props = {
+    // image?: ;
+    label?: string;
+    description?: Infos
+    icon?: NameIcons;
+}
+
+const RoomCard = ({ label, description, icon } : Props) => {
+
     return (
-        <View style={style.card}>
-            <TouchableOpacity style={style.container}>
-                <Image source={require('../../../assets/images/slide-1.jpg')} style={style.images}/>
-
-                <View style={style.infoSection}>
-                    <Text style={style.title}>Suíte de Luxo</Text>
-
-                    <Text style={style.price}>
-                        R$ 80 por 2 noites
-                    </Text>
+        <View style={global.content}>
+            <View>{/* Imagem */}</View>
+            <View>
+                {!!label && <Text style={global.title}>{label}</Text>}
+                <View>
+                    {!!icon && (
+                        <View>
+                            {icon.lib === 'MaterialIcons' && (
+                                <MaterialIcons name={icon.name} size={23} color='#001f52ff' />
+                            )}
+                            {icon.lib === 'FontAwesome5' && (
+                                <FontAwesome5 name={icon.name} size={23} color='#001f52ff' />
+                            )}
+                            {icon.lib === 'FontAwesome6' && (
+                                <FontAwesome6 name={icon.name} size={23} color='#001f52ff' />
+                            )}
+                        </View>
+                    )}
+                    {!!description && (
+                        <View>
+                            <View style={style.description}>
+                                <View>
+                                {!!description.title && <Text>{description.title}</Text>}
+                                    <Text>{description.text}</Text>
+                                </View>
+                                <View>
+                                    <Text>R$ {description.price}</Text>
+                                </View>
+                            </View>
+                        </View>
+                    )}
                 </View>
-            </TouchableOpacity>
+            </View>
         </View>
     );
 }
 
 const style = StyleSheet.create({
-    card: {
-        maxWidth: 320, 
-        margin: 10, 
-        borderRadius: 20, 
-        backgroundColor: '#d5fcfd62'
-    },
-    container: {
-        borderRadius:20, 
-        padding: 10
-    },
-    images: {
-        width: "100%",
-        height: 200,
+    description: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#2cb4dd9c',
         borderRadius: 10,
-        resizeMode: 'cover'
-    },
-    infoSection: {
-        paddingHorizontal: 16
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 8
-    },
-    price: {
-        fontSize: 14,
-        fontWeight: 'bold',
-        color: "#36a8ebff"
+        shadowColor: '#000',
+        shadowOpacity: 0.05,
+        shadowRadius: 10,
+        elevation: 2
     }
 })
 

@@ -6,65 +6,92 @@ import TextField from "../ui/TextField";
 import RenderDatePicker from "../ui/DatePicker";
 import RoomCard from "../ui/RoomCard";
 
-import { global } from "../ui/styles";
-
 const RenderExplorer = () => {
 
     const { width, height } = Dimensions.get('window');
 
     const [checkIn, setCheckIn] = useState("");
     const [checkOut, setCheckOut] = useState("");
+    // const [calendar, setCalendar] = useState<"checkin" | "checkout"> ();
 
-    const [calendar, setCalendar] = useState<"checkin" | "checkout"> ();
+    const [showCheckIn, setShowCheckIn] = useState(false);
+    const [showCheckOut, setShowCheckOut] = useState(false);
 
     return (
         <AuthContainer>
                 {/* children */}
-                <View style={global.container}>
-                    <TouchableOpacity onPress={() => setCalendar('checkin')}>
-                        <TextField
-                            label='Check-in'
-                            icon={{lib: 'MaterialIcons', name: 'calendar-month'}}
-                            placeholder="Selecione a data"
-                            value={checkIn}
-                        />
-                            
-                            {/* <View style={{flex:1, flexDirection:"row", backgroundColor:"#d5fcfd62", borderRadius: 10}}>
-                                <RenderDatePicker onDateChange={handleCheckinChange}/>
-                                <RenderDatePicker onDateChange={handleCheckoutChange}/>
+                <View style={{display: 'flex', flexDirection: 'row', gap: width * 0.05, justifyContent: 'center'}}>
+                    <View style={{display: 'flex', flexDirection: 'column'}}>
+                        <TouchableOpacity onPress={() => setShowCheckIn(true)}>
+                            <View style={{width: width * 0.42}}>
+                                <TextField
+                                    label='Check-in'
+                                    icon={{lib: 'MaterialIcons', name: 'calendar-month'}}
+                                    placeholder="Selecione a data"
+                                    value={checkIn}
+                                    editable={false}
+                                />
                             </View>
-                            <ScrollView horizontal={true}>
-                                <RoomCard />
-                                <RoomCard />
-                                <RoomCard />
-                            </ScrollView> */}
+                        </TouchableOpacity>
+
                         
-                    </TouchableOpacity>
+                    </View>
 
-                    {calendar === 'checkin' && (
-                        <RenderDatePicker onDateChange={(date) => {
-                            setCheckIn(date);
-                        }}/>
-                    )}
-
-                    <TouchableOpacity onPress={() => setCalendar('checkout')}>
-                        <TextField
-                            label="Check-out"
-                            icon={{lib: 'MaterialIcons', name: 'calendar-month'}}
-                            placeholder="Selecione a data"
-                            value={checkOut}
-                        />
-                    </TouchableOpacity>
-
-                    {calendar === 'checkout' && (
-                        <RenderDatePicker onDateChange={(date) => {
-                            setCheckOut(date);
-                        }}/>
-                    )}
-
+                    <View style={{ display: 'flex', flexDirection: 'column'}}>
+                        <TouchableOpacity onPress={() => setShowCheckOut(true)}>
+                            <View style={{width: width * 0.42}}>
+                                <TextField
+                                    label="Check-out"
+                                    icon={{lib: 'MaterialIcons', name: 'calendar-month'}}
+                                    placeholder="Selecione a data"
+                                    value={checkOut}
+                                    editable={false}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
+
+                <RenderDatePicker
+                    visible={showCheckIn}
+                    onClose={() => setShowCheckIn(false)}
+                    onDateChange={(date) => {
+                        setCheckIn(date);
+                        // Fecha automaticamente após selecionar
+                    }}
+                />
+
+                <RenderDatePicker
+                    visible={showCheckOut}
+                    onClose={() => setShowCheckOut(false)}
+                    onDateChange={(date) => {
+                        setCheckOut(date);
+                        // Fecha automaticamente após selecionar
+                    }}
+                />
+            
+            <RoomCard 
+                label="Suíte Luxie"
+                icon={{
+                  lib: "MaterialIcons",
+                  name: "king-bed"
+                }}
+                description={{
+                  title: "Características do quarto",
+                  text: "1 cama de casal\n2 camas de solteiro",
+                  price: 200.00
+                }}
+            />
+
         </AuthContainer>
     );
 }
 
 export default RenderExplorer;
+
+
+// {calendar === 'checkout' && (
+//     <RenderDatePicker onDateChange={(date) => {
+//         setCheckOut(date);
+//     }}/>
+// )}

@@ -28,9 +28,11 @@ export const global = StyleSheet.create({
         textAlign: "center"
     },
     content: {
+        width: width * 0.96,
         backgroundColor: "#5dd9ff9c",
         borderRadius: 10,
-        padding: width * 0.02,
+        alignSelf: 'center',
+        padding: width * 0.03,
         shadowColor: "#000",
         shadowOpacity: 0.05,
         shadowRadius: 10,
@@ -70,7 +72,7 @@ export const global = StyleSheet.create({
         fontSize: 17,
         color: "#000",
         fontWeight: "600",
-        paddingHorizontal: width * 0.02
+        paddingHorizontal: width * 0.01
     },
     errorText: {
         color: "red",
@@ -96,53 +98,53 @@ export const global = StyleSheet.create({
     },
 
     // DatePicker
-    // centerView: {
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     marginTop: 22
-    // },
-    // modalView: {
-    //     margin: 150,
-    //     backgroundColor: "#97abc5ff",
-    //     borderRadius: 20,
-    //     width: width * 0.9,
-    //     padding: 20,
-    //     alignItems: 'center',
-    //     shadowColor: '#000000ff',
-    //     shadowOffset: {
-    //         width: 0,
-    //         height: 2
-    //     },
-    //     shadowOpacity: 0.25,
-    //     shadowRadius: 4,
-    //     elevation: 5
-    // },
-    // datePickerContainer: {
-    //     flex: 1,
-    //     margin: 5
-    // },
-    // dateButton: {
-    //     padding: 15,
-    //     backgroundColor: '#f0f0f0ff',
-    //     borderRadius: 8,
-    //     margin: 5
-    // },
-    // dateText: {
-    //     fontSize: 16,
-    //     color: '#333333ff',
-    //     marginTop: 5
-    // },
-    // closeButton: {
-    //     backgroundColor: '#36a8ebff',
-    //     padding: 15,
-    //     borderRadius: 10,
-    //     marginTop: 10,
-    //     alignItems: 'center',
-    //     width: '100%'
-    // },
-    // closeButtonText: {
-    //     color: 'white',
-    //     fontSize: 16,
-    //     fontWeight: 'bold'
-    // }
+    centerView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "#97abc5ff",
+        borderRadius: 20,
+        width: width * 0.9,
+        padding: 20,
+        alignItems: 'center',
+        shadowColor: '#000000ff',
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    datePickerContainer: {
+        flex: 1,
+        margin: 5
+    },
+    dateButton: {
+        padding: 15,
+        backgroundColor: '#f0f0f0ff',
+        borderRadius: 8,
+        margin: 5
+    },
+    dateText: {
+        fontSize: 16,
+        color: '#333333ff',
+        marginTop: 5
+    },
+    closeButton: {
+        backgroundColor: '#36a8ebff',
+        padding: 15,
+        borderRadius: 10,
+        marginTop: 10,
+        alignItems: 'center',
+        width: '100%'
+    },
+    closeButtonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold'
+    }
 });
