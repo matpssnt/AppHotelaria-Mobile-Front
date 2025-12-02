@@ -20,7 +20,7 @@ const RenderExplorer = () => {
     return (
         <AuthContainer>
                 {/* children */}
-                <View style={{display: 'flex', flexDirection: 'row', gap: width * 0.05, justifyContent: 'center'}}>
+                <View style={{display: 'flex', flexDirection: 'row', gap: width * 0.05, justifyContent: 'center', marginTop: width * -0.15, marginBottom: width * 0.1}}>
                     <View style={{display: 'flex', flexDirection: 'column'}}>
                         <TouchableOpacity onPress={() => setShowCheckIn(true)}>
                             <View style={{width: width * 0.42}}>
@@ -57,7 +57,6 @@ const RenderExplorer = () => {
                     onClose={() => setShowCheckIn(false)}
                     onDateChange={(date) => {
                         setCheckIn(date);
-                        // Fecha automaticamente após selecionar
                     }}
                 />
 
@@ -66,12 +65,12 @@ const RenderExplorer = () => {
                     onClose={() => setShowCheckOut(false)}
                     onDateChange={(date) => {
                         setCheckOut(date);
-                        // Fecha automaticamente após selecionar
                     }}
                 />
             
             <RoomCard 
-                label="Suíte Luxie"
+                image={require('../../../assets/images/slide-1.jpg')}
+                label="Suíte Pixie"
                 icon={{
                   lib: "MaterialIcons",
                   name: "king-bed"

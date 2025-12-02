@@ -29,7 +29,7 @@ export const global = StyleSheet.create({
     },
     content: {
         width: width * 0.96,
-        backgroundColor: "#5dd9ff9c",
+        backgroundColor: "#deeef5ff",
         borderRadius: 10,
         alignSelf: 'center',
         padding: width * 0.03,

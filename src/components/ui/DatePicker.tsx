@@ -81,7 +81,7 @@
 
 
 import React, { useState } from "react"
-import { Modal, TouchableOpacity, View, Text, Platform } from "react-native";
+import { Modal, TouchableOpacity, View, Text, Platform, Dimensions } from "react-native";
 import DatePicker, { getToday } from "react-native-modern-datepicker";
 import { global } from "./styles";
 
@@ -92,6 +92,9 @@ type Props = {
 }
 
 const RenderDatePicker = ({ onDateChange, visible, onClose }: Props) => {
+
+    const { width, height } = Dimensions.get('window');
+
     const today = getToday();
     const [date, setDate] = useState('');
 

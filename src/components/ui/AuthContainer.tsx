@@ -25,7 +25,7 @@ const AuthContainer = ({title, subtitle, icon, children}: Props) => {
                         
                     </View>
 
-                    <View style={global.content}>
+                    <View>
                         {children}
                     </View>
                 </ScrollView>
