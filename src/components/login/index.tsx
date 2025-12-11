@@ -1,11 +1,11 @@
-import { TouchableOpacity, Text, View, Dimensions } from "react-native";
+import { TouchableOpacity, Text, View, Dimensions, Alert } from "react-native";
 import { useRouter } from "expo-router";
+import { useMemo, useState } from "react";
 
 import AuthContainer from "../ui/AuthContainer"
 import TextField from "../ui/TextField";
 import PasswordField from "../ui/PasswordField";
 import { global } from "../ui/styles";
-import { useMemo, useState } from "react";
 
 function isValidEmail(email: string) {
     return /^[^\s@&='<>:"|?!*[,] @ [^\s@&='<>:"|?!*[,] . [^\s@&='<>:"|?!*[,]$/.test(email);
@@ -34,7 +34,29 @@ const RenderLogin = () => {
     const { width, height } = Dimensions.get("window");
 
     const handlerLogin = async () => {
-        router.replace("/(tabs)/explorer")
+        try {
+            setLoading(true);
+            console.log("[LOGIN] Tentando fazer login com: ", {
+                email,
+                password
+            });
+            await new Promise((req) => setTimeout(req, 2000));
+            if (email === "possonato@email.com" && password === "123") {
+                Alert.alert("Login acessado com sucesso!");
+                router.replace("/(tabs)/explorer");
+            }
+            else {
+                Alert.alert("Tentativa de login negada!", "Confirme seu email e senha para logar");
+                return;
+            }
+        }
+        catch (e) {
+            Alert.alert("Erro", "Falha ao tentar logar!");
+        }
+        finally {
+            setLoading(false);
+        }
+
     }
 
     return (
@@ -60,7 +82,7 @@ const RenderLogin = () => {
                 icon={{lib: "MaterialIcons", name: "lock"}}
                 placeholder="************"
                 value={password}
-                onChangeText={(input) => setEmail(input)}
+                onChangeText={(input) => setPassword(input)}
                 errorText={errors.password}
             />
 

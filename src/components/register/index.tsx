@@ -1,11 +1,11 @@
 import { TouchableOpacity, Text, View, Dimensions, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
+import { useMemo, useState } from "react";
 
 import AuthContainer from "../ui/AuthContainer";
 import TextField from "../ui/TextField";
 import PasswordField from "../ui/PasswordField";
 import { global } from "../ui/styles"
-import { useMemo, useState } from "react";
 
 function isValidEmail(email: string) {
     return /^[^\s@&='<>:"|?!*[,] @ [^\s@&='<>:"|?!*[,] . [^\s@&='<>:"|?!*[,]$/.test(email);
@@ -30,22 +30,15 @@ const RenderRegister = () => {
 
     const errors = useMemo(() => {
         const error: Record<string, string> = {};
-        if (touched.name && !name) error.name = "Nome obrigatório";
-        if (touched.cpf && !cpf) error.cpf = "CPF obrigatório";
-        if (touched.phone && !phone) error.phone = "Telefone obrigatório";
-        if (touched.email && !email) error.email = "E-mail obrigatório";
-        if (touched.password && !password) error.password = "Senha obrigatória";
-        if (touched.password && password && password.length < 6) error.password = "Mínimo de 6 carateres para a senha";
-        if (touched.email && email && !isValidEmail(email)) error.email = "Digite um e-mail válido";
-        
-        if (touched.confPassword) {
-            if (!confPassword) { 
-                error.confPassword = "Confirme sua senha";
-            }
-            else if (password !== confPassword) {
-                error.confPassword = "Senhas não correspondem!"
-            }
-        }
+        if (touched.name && !name) error.name = "Nome obrigatório!";
+        if (touched.cpf && !cpf) error.cpf = "CPF obrigatório!";
+        if (touched.cpf && cpf && cpf.length < 11) error.cpf = "Digite um CPF válido!"
+        if (touched.phone && !phone) error.phone = "Telefone obrigatório!";
+        if (touched.email && !email) error.email = "E-mail obrigatório!";
+        if (touched.password && !password) error.password = "Senha obrigatória!";
+        if (touched.password && password && password.length < 6) error.password = "Mínimo de 6 carateres para a senha!";
+        if (touched.confPassword && confPassword && password && confPassword !== password) error.confPassword = "As senhas não correspondem!"
+        if (touched.email && email && !isValidEmail(email)) error.email = "Digite um e-mail válido!";
         
 
         return error;
@@ -55,6 +48,11 @@ const RenderRegister = () => {
 
 
     const { width, height } = Dimensions.get("window");
+
+
+    const handlerSubmit = () => {
+        router.replace("/(auth)")
+    }
 
     return (
         <AuthContainer
@@ -124,7 +122,7 @@ const RenderRegister = () => {
                 />
 
 
-                <TouchableOpacity style={[global.primaryButton]}>
+                <TouchableOpacity style={[global.primaryButton]} onPress={handlerSubmit} disabled={!canSubmit}>
                     <Text style={global.primaryButtonText}>Criar conta</Text>
                 </TouchableOpacity>
 
