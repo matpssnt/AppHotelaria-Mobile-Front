@@ -1,10 +1,12 @@
-import { View, TouchableOpacity, Dimensions } from "react-native";
+import { View, TouchableOpacity, Dimensions, Text } from "react-native";
 import { useState } from "react";
 
 import AuthContainer from "../ui/AuthContainer";
 import TextField from "../ui/TextField";
 import RenderDatePicker from "../ui/DatePicker";
 import RoomCard from "../ui/RoomCard";
+import InputSpin from "../ui/inputSpin";
+import { global } from "../ui/styles";
 
 const RenderExplorer = () => {
 
@@ -12,10 +14,12 @@ const RenderExplorer = () => {
 
     const [checkIn, setCheckIn] = useState("");
     const [checkOut, setCheckOut] = useState("");
-    // const [calendar, setCalendar] = useState<"checkin" | "checkout"> ();
 
     const [showCheckIn, setShowCheckIn] = useState(false);
     const [showCheckOut, setShowCheckOut] = useState(false);
+
+
+    const [qntGuests, setQntGuests] = useState("");
 
     return (
         <AuthContainer>
@@ -33,7 +37,14 @@ const RenderExplorer = () => {
                                 />
                             </View>
                         </TouchableOpacity>
-
+                    
+                        <RenderDatePicker
+                            visible={showCheckIn}
+                            onClose={() => setShowCheckIn(false)}
+                            onDateChange={(date) => {
+                                setCheckIn(date);
+                            }}
+                        />
                         
                     </View>
 
@@ -49,38 +60,41 @@ const RenderExplorer = () => {
                                 />
                             </View>
                         </TouchableOpacity>
+
+                        <RenderDatePicker
+                            visible={showCheckOut}
+                            onClose={() => setShowCheckOut(false)}
+                            onDateChange={(date) => {
+                                setCheckOut(date);
+                            }}
+                        />
+
                     </View>
+
+                        <View style={global.label}>
+                            <Text>Quantidade de hóspedes</Text>
+                            <InputSpin 
+                                onSelectSpin={(guests) => {
+                                    setQntGuests(guests);
+                                }}
+                            />
+                        </View>
+
                 </View>
-
-                <RenderDatePicker
-                    visible={showCheckIn}
-                    onClose={() => setShowCheckIn(false)}
-                    onDateChange={(date) => {
-                        setCheckIn(date);
-                    }}
-                />
-
-                <RenderDatePicker
-                    visible={showCheckOut}
-                    onClose={() => setShowCheckOut(false)}
-                    onDateChange={(date) => {
-                        setCheckOut(date);
-                    }}
-                />
             
-            <RoomCard 
-                image={require('../../../assets/images/slide-1.jpg')}
-                label="Suíte Pixie"
-                icon={{
-                  lib: "MaterialIcons",
-                  name: "king-bed"
-                }}
-                description={{
-                  title: "Características do quarto",
-                  text: "1 cama de casal\n2 camas de solteiro",
-                  price: 200.00
-                }}
-            />
+                <RoomCard 
+                    image={require('../../../assets/images/slide-1.jpg')}
+                    label="Suíte Pixie"
+                    icon={{
+                      lib: "MaterialIcons",
+                      name: "king-bed"
+                    }}
+                    description={{
+                      title: "Características do quarto",
+                      text: "1 cama de casal\n2 camas de solteiro",
+                      price: 200.00
+                    }}
+                />
 
         </AuthContainer>
     );
