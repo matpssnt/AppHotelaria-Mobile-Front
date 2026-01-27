@@ -116,7 +116,7 @@ const RenderDatePicker = ({ onDateChange, visible, onClose }: Props) => {
                     <DatePicker 
                         mode="calendar" 
                         options={{
-                            backgroundColor: "#e3f4fcff", 
+                            backgroundColor: "rgb(205, 226, 245)", 
                             textHeaderColor: "#000", 
                             textDefaultColor: "#000", 
                             selectedTextColor: "rgba(0, 0, 0, 1)",
@@ -131,7 +131,7 @@ const RenderDatePicker = ({ onDateChange, visible, onClose }: Props) => {
                     />
                     
                     <TouchableOpacity onPress={onClose} style={global.closeButton}>
-                        <Text style={global.closeButtonText}>Close</Text>
+                        <Text style={global.closeButtonText}>Fechar</Text>
                     </TouchableOpacity>
                 </View>
             </View>
