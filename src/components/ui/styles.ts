@@ -138,5 +138,14 @@ export const global = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         fontWeight: 'bold'
+    },
+
+
+    //Profile
+
+    titleProfile: {
+        fontSize: 28,
+        fontWeight: 800,
+        alignItems: 'center'
     }
 });

@@ -1,12 +1,180 @@
-import { View, Text } from "react-native";
+import { View, Text, Dimensions, TouchableOpacity, Image, Alert, ScrollView, Modal } from "react-native";
 
+import TextField from "../ui/TextField";
+import AuthContainer from "../ui/AuthContainer";
 import { global } from "../ui/styles";
+import { useState } from "react";
+import PasswordField from "../ui/PasswordField";
+
+
+import MaskInput, {useMaskedInputProps, Masks} from 'react-native-mask-input';
 
 const RenderAccount = () => {
+    const { width, height } = Dimensions.get('window');
+
+    const [modalPass, setModalPass] = useState(false);
+
+    const [cpf, setCpf] = useState("");
+    const [phone, setPhone] = useState("");
+
+
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    
+
+    //Máscaras para Telefone e CPF
+    const propsCpf = useMaskedInputProps({
+        value: cpf,
+        onChangeText: setCpf,
+        mask: [
+          /\d/, /\d/, /\d/, ".", /\d/, /\d/, /\d/, ".", /\d/, /\d/, /\d/, "-", /\d/, /\d/
+        ],
+    });
+
+    const propsPhone = useMaskedInputProps({
+        value: phone,
+        onChangeText: setPhone,
+        mask: Masks.BRL_PHONE,
+    });
+
+
+    //Dado de email para retornar no perfil
+    const [userData, setUserData] = useState({
+        email: 'possonato@email.com'
+    });
+
+
+    const handlerProfile = async (currentPass: string, newPass: string) => {
+        console.log('Alterando senha: ', {
+            currentPass, 
+            newPass, 
+            timestamp: new Date().toISOString()
+        });
+
+        if (currentPass === "123" && newPass.length >= 6) {
+            Alert.alert("Sucesso!", 
+                `Sua senha foi alterada\n\nSeus dados:\nSenha atual: ${currentPass.replace(/./g, '*')}
+                \nNova senha: ${newPass.replace(/./g, '*')}`,
+                [{ text: "OK", onPress: () => { 
+                    setModalPass(false);
+                    setCurrentPassword('');
+                    setNewPassword('');
+                    setConfirmPassword('');
+                }}]
+
+            );
+            return true;
+        }
+        else if (currentPass !== '123') {
+            Alert.alert('Erro,',
+                "a sua senha está incorreta!",
+                [{ text: "OK" }]
+            );
+            return false;
+        }
+        else {
+            Alert.alert('Erro!',
+                "A nova senha deve ter pelo menos 6 caractéres.",
+                [{ text: "OK" }]
+            );
+            return false;
+        }
+    }
+
+    const handlerSaveProfile = () => {
+        if (!currentPassword.trim()) {
+            Alert.alert('Atenção!', "Digite sua senha atual.");
+            return;
+        }
+
+        if (!newPassword.trim()) {
+            Alert.alert('Atenção!', "Digite sua nova senha.");
+            return;
+        }
+
+        if (newPassword.length < 6) {
+            Alert.alert('Atenção!', "Sua nova senha deve conter no mínimo 6 caractéres.");
+            return;
+        }
+
+        if (newPassword !== currentPassword) {
+            Alert.alert('Atenção!', "As senha não coincidem");
+            return;
+        }
+    }
+
+
+    const handlerClose = () => {
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
+        setModalPass(false);
+    }
+
     return (
-        <View style={global.container}>
-            <Text>Perfil</Text>
-        </View>
+        <AuthContainer>
+            {/* <ScrollView contentContainerStyle={{flexGrow: 1}}> */}
+                <View style={global.container}>
+                    <View style={global.content}>
+                        <Text style={[global.titleProfile, {textAlign: 'center', marginBottom: 20}]}>Mateus Possonato</Text>
+                        
+                            <TextField
+                            label="Seu Email"
+                            icon={{lib: 'MaterialIcons', name: 'email'}}
+                            placeholder=""
+                            value={userData.email}
+                            editable={false}
+                            />
+
+                            <TextField
+                            {...propsCpf}
+                            label="Seu CPF"
+                            icon={{lib: 'MaterialIcons', name: 'badge'}}
+                            placeholder="000.000.000-00"
+                            keyboardType="numeric"
+                            />
+
+                            <TextField
+                            {...propsPhone}
+                            label="Seu Telefone"
+                            icon={{lib: 'MaterialIcons', name: 'phone'}}
+                            placeholder="(00) 00000-0000"
+                            keyboardType="phone-pad"
+                            />
+                    </View>
+                </View>
+            {/* </ScrollView> */}
+            <TouchableOpacity
+                onPress={() => setModalPass(true)}
+                style={global.closeButton}
+            >
+                <Text style={global.closeButtonText}>Alterar Senha</Text>
+            </TouchableOpacity>
+
+            <Modal
+                visible={modalPass}
+                animationType="slide"
+                transparent={true}
+                onRequestClose={handlerClose}
+            >
+                <View style={global.centerView}>
+                    <View style={global.modalView}>
+                        <Text style={global.label}>Alterar Senha</Text>
+
+                        <PasswordField
+                            label="Nova Senha"
+                            icon={{lib: 'MaterialIcons', name: 'lock-outline'}}
+                            placeholder="Digite a nova senha"
+                            value={newPassword}
+                            onChangeText={setNewPassword}
+                        />
+                    </View>
+                </View>
+            </Modal>
+
+        </AuthContainer>
+        
     );
 }
 
