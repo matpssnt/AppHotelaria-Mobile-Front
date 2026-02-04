@@ -54,8 +54,7 @@ const RenderAccount = () => {
 
         if (currentPass === "123" && newPass.length >= 6) {
             Alert.alert("Sucesso!", 
-                `Sua senha foi alterada\n\nSeus dados:\nSenha atual: ${currentPass.replace(/./g, '*')}
-                \nNova senha: ${newPass.replace(/./g, '*')}`,
+                `Sua senha foi alterada\n\nSeus dados:\n\nSenha atual: ${currentPass.replace(/./g, '*')}\nNova senha: ${newPass.replace(/./g, '*')}`,
                 [{ text: "OK", onPress: () => { 
                     setModalPass(false);
                     setCurrentPassword('');
@@ -68,7 +67,7 @@ const RenderAccount = () => {
         }
         else if (currentPass !== '123') {
             Alert.alert('Erro,',
-                "a sua senha está incorreta!",
+                "A sua senha está incorreta!",
                 [{ text: "OK" }]
             );
             return false;
@@ -98,10 +97,12 @@ const RenderAccount = () => {
             return;
         }
 
-        if (newPassword !== currentPassword) {
-            Alert.alert('Atenção!', "As senha não coincidem");
+        if (newPassword !== confirmPassword) {
+            Alert.alert('Atenção!', "As senha não coincidem, confirme sua nova senha");
             return;
         }
+
+        handlerProfile(currentPassword, newPassword);
     }
 
 
@@ -113,11 +114,12 @@ const RenderAccount = () => {
     }
 
     return (
-        <AuthContainer>
-            {/* <ScrollView contentContainerStyle={{flexGrow: 1}}> */}
-                <View style={global.container}>
+        <AuthContainer
+            title="Meu Perfil"
+            subtitle="Gerencie suas informações pessoais"
+            icon="user"
+        >
                     <View style={global.content}>
-                        <Text style={[global.titleProfile, {textAlign: 'center', marginBottom: 20}]}>Mateus Possonato</Text>
                         
                             <TextField
                             label="Seu Email"
@@ -143,36 +145,76 @@ const RenderAccount = () => {
                             keyboardType="phone-pad"
                             />
                     </View>
-                </View>
-            {/* </ScrollView> */}
-            <TouchableOpacity
-                onPress={() => setModalPass(true)}
-                style={global.closeButton}
-            >
-                <Text style={global.closeButtonText}>Alterar Senha</Text>
-            </TouchableOpacity>
+            
+                <TouchableOpacity
+                    onPress={() => setModalPass(true)}
+                    style={[global.primaryButton, {
+                        marginTop: 20,
+                        alignSelf: 'center',
+                        width: width * 0.9
+                    }]}
+                >
+                    <Text style={global.primaryButtonText}>Alterar Senha</Text>
+                </TouchableOpacity>
 
-            <Modal
-                visible={modalPass}
-                animationType="slide"
-                transparent={true}
-                onRequestClose={handlerClose}
-            >
-                <View style={global.centerView}>
-                    <View style={global.modalView}>
-                        <Text style={global.label}>Alterar Senha</Text>
+                {/* MODAL PARA AS SENHAS */}
+                    <Modal
+                        visible={modalPass}
+                        animationType="slide"
+                        transparent={true}
+                        onRequestClose={handlerClose}
+                    >
+                        <View style={global.centerView}>
+                            <View style={global.modalContent}>
+                                <Text style={global.label}>Alterar Senha</Text>
 
-                        <PasswordField
-                            label="Nova Senha"
-                            icon={{lib: 'MaterialIcons', name: 'lock-outline'}}
-                            placeholder="Digite a nova senha"
-                            value={newPassword}
-                            onChangeText={setNewPassword}
-                        />
-                    </View>
-                </View>
-            </Modal>
+                            {/* SENHA ATUAL */}
+                                <PasswordField
+                                    label="Senha atual"
+                                    icon={{lib: 'MaterialCommunityIcons', name: 'lock'}}
+                                    placeholder="Digite a senha atual"
+                                    value={currentPassword}
+                                    onChangeText={setCurrentPassword}
+                                    secureTextEntry
+                                />
 
+                            {/* NOVA SENHA */}
+                                <PasswordField
+                                    label="Nova senha"
+                                    icon={{lib: 'MaterialCommunityIcons', name: 'lock-alert'}}
+                                    placeholder="Digite a nova senha"
+                                    value={newPassword}
+                                    onChangeText={setNewPassword}
+                                />
+
+                            {/* CONFIRMAR SENHA */}
+                                <PasswordField
+                                    label="Confirme sua senha"
+                                    icon={{lib: 'MaterialCommunityIcons', name: 'lock-check'}}
+                                    placeholder="Confirme a nova senha"
+                                    value={confirmPassword}
+                                    onChangeText={setConfirmPassword}
+                                />
+
+                            {/* BOTÕES DO MODAL */}
+                                <View style={global.modalButtonsContainer}>
+                                    <TouchableOpacity 
+                                        style={[global.modalButton, global.modalSave]}
+                                        onPress={handlerSaveProfile}
+                                    >
+                                        <Text style={global.primaryButtonText}>Salvar</Text>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity 
+                                        style={[global.modalButton, global.modalCancel]}
+                                        onPress={handlerClose}
+                                    >
+                                        <Text style={global.primaryButtonText}>Cancelar</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
         </AuthContainer>
         
     );

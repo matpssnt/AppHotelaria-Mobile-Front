@@ -68,50 +68,43 @@ const RenderExplorer = () => {
                     />
                 </View>
 
-                <View style={{display: "flex", flexDirection: "column"}}>
+                <View style={{display: "flex", flexDirection: "column", alignItems: 'center'}}>
                     <Text style={global.label}>Quantidade de hóspedes</Text>
-                    <InputSpin
-                        guests={(qntGuests)}
-                        onSelectSpin={(guests) => {
-                            setQntGuests(guests);
-                        }}
-                        minGuests={1}
-                        maxGuests={6}
-                        stepNumber={6}
-                        onColorMax="#253241ff"
-                        onColorMin="#253241ff"
-                    />
-
-                    <InputSpin
-                        guests={(qntGuests)}
-                        onSelectSpin={(guests) => {
-                            setQntGuests(guests);
-                        }}
-                        minGuests={1}
-                        maxGuests={6}
-                        stepNumber={6}
-                        onColorMax="rgb(36, 111, 197)"
-                        onColorMin="rgb(19, 102, 197)"
-                    />
+                    <View style={{alignItems: 'center', marginTop: 10}}>
+                        <InputSpin
+                            guests={(qntGuests)}
+                            onSelectSpin={(guests) => {
+                                setQntGuests(guests);
+                            }}
+                            minGuests={1}
+                            maxGuests={6}
+                            stepNumber={1}
+                            onColorMax="#253241ff"
+                            onColorMin="#253241ff"
+                        />
+                    </View>
                 </View>
                 
             </View>
                 
-            
-            <RoomCard 
-                image={require('../../../assets/images/slide-1.jpg')}
-                label="Suíte Pixie"
-                icon={{
-                  lib: "MaterialIcons",
-                  name: "king-bed"
-                }}
-                description={{
-                  title: "Características do quarto",
-                  text: "1 cama de casal\n2 camas de solteiro",
-                  price: 200.00
-                }}
-            />
+            <View style={{marginBottom: 25, width: '100%'}}>
+                <Text style={[global.label, {marginBottom: 15}]}>Quartos disponíveis</Text>
 
+                    <RoomCard 
+                        image={require('../../../assets/images/slide-1.jpg')}
+                        label="Suíte Pixie"
+                        icon={{
+                          lib: "MaterialIcons",
+                          name: "king-bed"
+                        }}
+                        description={{
+                          title: "Características do quarto",
+                          text: "1 cama de casal\n2 camas de solteiro",
+                          price: 200.00
+                        }}
+                    />
+                    
+            </View>
         </AuthContainer>
     );
 }

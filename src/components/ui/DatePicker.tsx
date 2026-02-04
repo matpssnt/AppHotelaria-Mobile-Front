@@ -116,7 +116,7 @@ const RenderDatePicker = ({ onDateChange, visible, onClose }: Props) => {
                     <DatePicker 
                         mode="calendar" 
                         options={{
-                            backgroundColor: "rgb(205, 226, 245)", 
+                            backgroundColor: "#deeef5ff", 
                             textHeaderColor: "#000", 
                             textDefaultColor: "#000", 
                             selectedTextColor: "rgba(0, 0, 0, 1)",

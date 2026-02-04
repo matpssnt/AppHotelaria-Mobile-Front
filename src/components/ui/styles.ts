@@ -23,7 +23,7 @@ export const global = StyleSheet.create({
     },
     subtitle: {
         fontSize: 17,
-        color: "#02357ee5",
+        color: "#333333ff",
         marginTop: height * 0.01,
         textAlign: "center"
     },
@@ -97,11 +97,13 @@ export const global = StyleSheet.create({
         fontWeight: '600'
     },
 
-    // DatePicker
+
+    // Modal
     centerView: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
     },
     modalView: {
         margin: 20,
@@ -111,6 +113,38 @@ export const global = StyleSheet.create({
         padding: 20,
         alignItems: 'center'
     },
+    modalContent: {
+        width: '90%',
+        backgroundColor: '#deeef5ff',
+        borderRadius: 10,
+        padding: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    modalButtonsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+        marginTop: 10
+    },
+    modalButton: {
+        flex: 1,
+        padding: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginHorizontal: 5
+    },
+    modalCancel: {
+        backgroundColor: '#f74848',
+    },
+    modalSave: {
+        backgroundColor: '#36a8ebff'
+    },
+
+    // DatePicker
     datePickerContainer: {
         flex: 1,
         margin: 5
@@ -144,7 +178,7 @@ export const global = StyleSheet.create({
     //Profile
 
     titleProfile: {
-        fontSize: 28,
+        fontSize: 20,
         fontWeight: 800,
         alignItems: 'center'
     }
