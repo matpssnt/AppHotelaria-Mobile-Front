@@ -89,7 +89,7 @@ export const global = StyleSheet.create({
     },
     primaryButtonDisable: {
         backgroundColor: "#253241ff",
-         borderRadius: 10
+        borderRadius: 10
     },
     primaryButtonText: {
         color: "#eef5faff",

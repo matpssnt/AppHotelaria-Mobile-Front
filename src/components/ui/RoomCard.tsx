@@ -21,6 +21,7 @@ type Props = {
   label?: string;
   description?: Infos;
   icon?: NameIcons;
+  onPressReserve?: () => void;
 };
 
 const { width, height } = Dimensions.get("window");

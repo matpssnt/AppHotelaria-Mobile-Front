@@ -16,7 +16,11 @@ const AuthContainer = ({title, subtitle, icon, children}: Props) => {
     return (
         <SafeAreaView style={global.safeArea}>
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : "height"} style={global.keyboardAvoinding}>
-                <ScrollView style={global.container}>
+                <ScrollView 
+                    style={global.container}
+                    contentContainerStyle={{paddingBottom: 60}}
+                    showsVerticalScrollIndicator={false}
+                >
                     <View style={global.header}>
 
                         {!! icon && <FontAwesome6 name={icon} size={25} color="#000000e3" />}

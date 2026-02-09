@@ -148,11 +148,14 @@ const RenderAccount = () => {
             
                 <TouchableOpacity
                     onPress={() => setModalPass(true)}
-                    style={[global.primaryButton, {
-                        marginTop: 20,
-                        alignSelf: 'center',
-                        width: width * 0.9
-                    }]}
+                    style={{
+                        backgroundColor: 'rgba(7, 4, 43, 0.94)',
+                        height: height * 0.07,
+                        padding: 18, 
+                        borderRadius: 12, 
+                        marginTop: 30, 
+                        alignItems: 'center'
+                    }}
                 >
                     <Text style={global.primaryButtonText}>Alterar Senha</Text>
                 </TouchableOpacity>

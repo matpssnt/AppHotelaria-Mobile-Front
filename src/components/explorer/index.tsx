@@ -18,8 +18,22 @@ const RenderExplorer = () => {
     const [showCheckIn, setShowCheckIn] = useState(false);
     const [showCheckOut, setShowCheckOut] = useState(false);
 
-
     const [qntGuests, setQntGuests] = useState<number>(1);
+
+    const [isReserveModalOpen, setIsReserveModalOpen] = useState(false);
+    const [selectedRoom, setSelectedRoom] = useState<any>(null);
+
+    const handleOpenReserve = (room: any) => {
+        setSelectedRoom(room);
+        setIsReserveModalOpen(true);
+    };
+
+
+    const rooms = [
+        { id: 1, label: 'Quarto Píxie', price: 140.90, text: "1 cama de casal\n1 cama de solteiro\nAr condicionado" },
+        { id: 2, label: 'Suíte Píxie', price: 200.00, text: "1 cama de casal\n2 camas de solteiro\nVista para o mar" },
+        { id: 3, label: 'Quarto Píxie Solo', price: 80.00, text: "1 cama de solteiro\nFrigobar incluso" },
+    ];
 
     return (
         <AuthContainer>
@@ -90,30 +104,38 @@ const RenderExplorer = () => {
             <View style={{marginBottom: 25, width: '100%'}}>
                 <Text style={[global.label, {marginBottom: 15}]}>Quartos disponíveis</Text>
 
-                    <RoomCard 
+                {rooms.map((room) => (
+                    <RoomCard
+                        key={room.id}
                         image={require('../../../assets/images/slide-1.jpg')}
-                        label="Suíte Pixie"
-                        icon={{
-                          lib: "MaterialIcons",
-                          name: "king-bed"
-                        }}
-                        description={{
-                          title: "Características do quarto",
-                          text: "1 cama de casal\n2 camas de solteiro",
-                          price: 200.00
-                        }}
+                        label={room.label}
+                        icon={{ lib: "MaterialIcons", name: "king-bed" }}
+                        description={{ text: room.text, price: room.price,  }}
+                        onPressReserve={() => handleOpenReserve(room)}
                     />
-                    
+                ))}
             </View>
+
+            <TouchableOpacity
+            style={{ 
+                  backgroundColor: 'rgba(7, 4, 43, 0.94)',
+                  height: height * 0.07,
+                  padding: 18, 
+                  borderRadius: 12, 
+                  marginTop: 30, 
+                  alignItems: 'center' 
+                }}
+                onPress={() => {
+                  // Lógica para confirmar a reserva pode ser adicionada aqui
+                  setIsReserveModalOpen(false);
+                }}
+              >
+                <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Confirmar Pedido</Text>
+                
+            </TouchableOpacity>
+
         </AuthContainer>
     );
 }
 
 export default RenderExplorer;
-
-
-// {calendar === 'checkout' && (
-//     <RenderDatePicker onDateChange={(date) => {
-//         setCheckOut(date);
-//     }}/>
-// )}
