@@ -5,11 +5,14 @@ import AuthContainer from "../ui/AuthContainer";
 import { global } from "../ui/styles";
 import { useState } from "react";
 import PasswordField from "../ui/PasswordField";
-
-
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "expo-router";
 import MaskInput, {useMaskedInputProps, Masks} from 'react-native-mask-input';
 
 const RenderAccount = () => {
+    const { signOut } = useAuth();
+    const router = useRouter();
+
     const { width, height } = Dimensions.get('window');
 
     const [modalPass, setModalPass] = useState(false);
@@ -113,6 +116,12 @@ const RenderAccount = () => {
         setModalPass(false);
     }
 
+
+    const logOut = async () => {
+        await signOut();
+        router.replace("/(auth)");
+    }
+
     return (
         <AuthContainer
             title="Meu Perfil"
@@ -158,6 +167,20 @@ const RenderAccount = () => {
                     }}
                 >
                     <Text style={global.primaryButtonText}>Alterar Senha</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={logOut}
+                    style={{
+                        backgroundColor: 'rgba(255, 0, 0, 0.94)',
+                        height: height * 0.07,
+                        padding: 18, 
+                        borderRadius: 12, 
+                        marginTop: 30, 
+                        alignItems: 'center'
+                    }}
+                >
+                    <Text style={global.primaryButtonText}>Sair da Conta</Text>
                 </TouchableOpacity>
 
                 {/* MODAL PARA AS SENHAS */}

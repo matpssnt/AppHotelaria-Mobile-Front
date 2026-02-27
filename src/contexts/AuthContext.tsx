@@ -1,6 +1,6 @@
 import { API_URL } from "@/constants/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createContext, use, useEffect, useMemo, useState } from "react";
+import { createContext, use, useContext, useEffect, useMemo, useState } from "react";
 
 
 type AuthContextProps = {
@@ -70,6 +70,12 @@ const AuthProvider = ({ children } : { children: React.ReactNode }) => {
     ), [token, isLoading]);
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
+
+export const useAuth = () => {
+    const ctx = useContext(AuthContext);
+    if (!ctx) throw new Error("useAuth() deve ser usado dentro de AuthProvider");
+    return ctx;
 }
 
 export default AuthProvider;

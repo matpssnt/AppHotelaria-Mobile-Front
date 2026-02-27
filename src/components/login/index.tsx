@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import AuthContainer from "../ui/AuthContainer"
 import TextField from "../ui/TextField";
 import PasswordField from "../ui/PasswordField";
+import { useAuth } from "../../contexts/AuthContext";
 import { global } from "../ui/styles";
 
 function isValidEmail(email: string) {
@@ -12,6 +13,7 @@ function isValidEmail(email: string) {
 }
 
 const RenderLogin = () => {
+    const { signIn } = useAuth();
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -36,22 +38,13 @@ const RenderLogin = () => {
     const handlerLogin = async () => {
         try {
             setLoading(true);
-            console.log("[LOGIN] Tentando fazer login com: ", {
-                email,
-                password
-            });
-            await new Promise((req) => setTimeout(req, 2000));
-            if (email === "" && password === "") {
-                Alert.alert("Login acessado com sucesso!");
-                router.replace("/(tabs)/explorer");
-            }
-            else {
-                Alert.alert("Tentativa de login negada!", "Confirme seu email e senha para logar");
-                return;
-            }
+            await signIn(email.trim(), password);
+
+            Alert.alert("Login realizado com sucesso!");
+            router.replace("/(tabs)/explorer");
         }
-        catch (e) {
-            Alert.alert("Erro", "Falha ao tentar logar!");
+        catch (erro: any) {
+            Alert.alert("Erro", erro?.message || "Falha ao tentar logar!");
         }
         finally {
             setLoading(false);

@@ -8,7 +8,11 @@ import PasswordField from "../ui/PasswordField";
 import { global } from "../ui/styles"
 
 function isValidEmail(email: string) {
-    return /^[^\s@&='<>:"|?!*[,] @ [^\s@&='<>:"|?!*[,] . [^\s@&='<>:"|?!*[,]$/.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
+function cleanCamps(value: string) {
+    return value.replace(/\D/g, '');
 }
 
 // function isValidPassword(password?: string, confPassword?: string) {
@@ -32,27 +36,33 @@ const RenderRegister = () => {
         const error: Record<string, string> = {};
         if (touched.name && !name) error.name = "Nome obrigatório!";
         if (touched.cpf && !cpf) error.cpf = "CPF obrigatório!";
-        if (touched.cpf && cpf && cpf.length < 11) error.cpf = "Digite um CPF válido!"
+        if (touched.cpf && cpf && cpf.length < 11) error.cpf = "Digite um CPF válido!";
         if (touched.phone && !phone) error.phone = "Telefone obrigatório!";
         if (touched.email && !email) error.email = "E-mail obrigatório!";
         if (touched.password && !password) error.password = "Senha obrigatória!";
         if (touched.password && password && password.length < 6) error.password = "Mínimo de 6 carateres para a senha!";
-        if (touched.confPassword && confPassword && password && confPassword !== password) error.confPassword = "As senhas não correspondem!"
+        if (touched.confPassword && confPassword && password && confPassword !== password) error.confPassword = "As senhas não correspondem!";
         if (touched.email && email && !isValidEmail(email)) error.email = "Digite um e-mail válido!";
         
 
         return error;
     }, [name, cpf, phone, email, password, confPassword, touched]);
 
-    const canSubmit = name && cpf && phone && email && password && confPassword && Object.keys(errors).length === 0 && !loading;
+    const canSubmit = 
+        name.trim() && 
+        cleanCamps(cpf) && 
+        cleanCamps(phone) && 
+        email && 
+        password && 
+        confPassword && 
+        Object.keys(errors).length === 0 && 
+        !loading;
 
-
-    const { width, height } = Dimensions.get("window");
-
-
-    const handlerSubmit = () => {
+    const handlerRegister = () => {
         router.replace("/(auth)")
     }
+
+    const { width, height } = Dimensions.get("window");
 
     return (
         <AuthContainer
@@ -122,7 +132,7 @@ const RenderRegister = () => {
                 />
 
 
-                <TouchableOpacity style={[global.primaryButton]} onPress={handlerSubmit} disabled={!canSubmit}>
+                <TouchableOpacity style={[global.primaryButton]} onPress={handlerRegister} disabled={!canSubmit}>
                     <Text style={global.primaryButtonText}>Criar conta</Text>
                 </TouchableOpacity>
 
