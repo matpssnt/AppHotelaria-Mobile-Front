@@ -7,6 +7,7 @@ type AuthContextProps = {
     token: string | null;
     isLoading: boolean;
     signIn: (email: string, senha: string) => Promise<void>;
+    signUp: (nome: string, email: string, telefone: string, cpf: string, senha: string) => Promise<void>;
     signOut: () => Promise<void>;
 }
 
@@ -53,6 +54,24 @@ const AuthProvider = ({ children } : { children: React.ReactNode }) => {
         setToken(tokenAPI);
     }
 
+    async function signUp(nome: string, email: string, telefone: string, cpf: string, senha: string) {
+        const res = await fetch(`${API_URL}/login/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ nome, cpf, telefone, email, senha })
+        });
+
+        if (!res.ok) {
+            const error = await res.json().catch(() => null);
+            throw new Error(error?.erro || "Falha ao cadastrar usuário");
+        }
+
+        const tokenAPI: string = await res.json();
+        await AsyncStorage.setItem("token", tokenAPI);
+        setToken(tokenAPI);
+    }
     
     async function signOut() {
         await AsyncStorage.removeItem("token");
@@ -65,6 +84,7 @@ const AuthProvider = ({ children } : { children: React.ReactNode }) => {
             token,
             isLoading,
             signIn,
+            signUp,
             signOut
         }
     ), [token, isLoading]);

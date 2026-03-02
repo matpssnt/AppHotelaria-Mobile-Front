@@ -8,14 +8,25 @@ type NameIcon =
     | {lib: "FontAwesome6"; name: keyof typeof FontAwesome6.glyphMap}
     | {lib: "MaterialCommunityIcons"; name: keyof typeof MaterialCommunityIcons.glyphMap};
 
+
+type MaskProps = (inputProps: TextInputProps) => React.ReactNode;
+
 type Props = TextInputProps & {
     label: string;
     errorText?: string;
     icon?: NameIcon;
+    renderInput?: MaskProps;
 }
 
 
-const TextField = ({label, errorText, icon, style, ...props} : Props ) => {
+const TextField = ({label, errorText, icon, style, renderInput, ...props} : Props ) => {
+
+    const inputProps: TextInputProps = {
+        keyboardAppearance: "dark",
+        placeholderTextColor: "#9ca3af",
+        style: [global.input, style],
+        ...props
+    }
 
     return (
         <View style={global.inputGroup}>
@@ -32,20 +43,13 @@ const TextField = ({label, errorText, icon, style, ...props} : Props ) => {
                         ) : null}
                     </View>
                 )}
-                <TextInput
-                    keyboardAppearance="dark"
-                    placeholderTextColor="#9ca3af"
-                    style={[global.input, style]}
-                    /* const TextField = ({label, errorText, icon, ...props} : Props) = {
-                        const style = props.style;
-                        const value = props.value;
-                        const onChangeText = props.onChangeText;
-                        const placeholder = props.placeholder;
-                        const autoCapitalize = props.autoCapitalize;
-                        const KeyboardType = props.KeyboardType;
-                       } */
-                    {...props}
-                />
+
+                {renderInput ? (
+                    renderInput(inputProps)
+                ) : (
+                    <TextInput {...inputProps}/>
+                )}
+                
             </View>
             {!! errorText &&
                 <Text style={global.errorText}>{errorText}</Text>
