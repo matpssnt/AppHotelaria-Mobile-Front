@@ -55,7 +55,7 @@ const RenderExplorer = () => {
                     <RenderDatePicker
                         visible={showCheckIn}
                         onClose={() => setShowCheckIn(false)}
-                        onDateChange={(date) => {
+                        onSelectedChange={(date) => {
                             setCheckIn(date);
                         }}
                     />
@@ -76,7 +76,7 @@ const RenderExplorer = () => {
                     <RenderDatePicker
                         visible={showCheckOut}
                         onClose={() => setShowCheckOut(false)}
-                        onDateChange={(date) => {
+                        onSelectedChange={(date) => {
                             setCheckOut(date);
                         }}
                     />
