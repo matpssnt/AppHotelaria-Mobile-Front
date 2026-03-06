@@ -2,6 +2,17 @@ import { API_URL } from "@/constants/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, use, useContext, useEffect, useMemo, useState } from "react";
 
+type CartReservation = {
+    roomId: number;
+    nome: string;
+    numero: string;
+    qnt_cama_casal: number;
+    qnt_cama_solteiro: number;
+    preco: number;
+    inicio: string;
+    fim: string;
+    quantidade: number;
+}
 
 type AuthContextProps = {
     token: string | null;
@@ -9,6 +20,13 @@ type AuthContextProps = {
     signIn: (email: string, senha: string) => Promise<void>;
     signUp: (nome: string, email: string, telefone: string, cpf: string, senha: string) => Promise<void>;
     signOut: () => Promise<void>;
+    consultRooms: (inicio: string, fim: string, quantidade: number) => Promise<any[]>;
+
+    cartReservations: CartReservation[];
+    addReservation: (reservation: CartReservation) => void;
+    //Remover um item específico do carrinho
+    cleartCart: () => void;
+    //Criar a ordem de pedido com as reservas => Forma de pagamento e adicional
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -16,6 +34,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 const AuthProvider = ({ children } : { children: React.ReactNode }) => {
     const [token, setToken] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [cartReservations, setCartReservations] = useState<CartReservation[]>([]);
     
 
     useEffect(() => {
@@ -34,7 +53,7 @@ const AuthProvider = ({ children } : { children: React.ReactNode }) => {
     }, []);
 
 
-
+    //  Login do usuário
     async function signIn(email: string, senha: string) {
         const res = await fetch(`${API_URL}/login`, {
             method: "POST",
@@ -54,6 +73,7 @@ const AuthProvider = ({ children } : { children: React.ReactNode }) => {
         setToken(tokenAPI);
     }
 
+    // Cadastro de usuário
     async function signUp(nome: string, email: string, telefone: string, cpf: string, senha: string) {
         const res = await fetch(`${API_URL}/login/register`, {
             method: "POST",
@@ -73,11 +93,35 @@ const AuthProvider = ({ children } : { children: React.ReactNode }) => {
         setToken(tokenAPI);
     }
     
+    //  Logout do usuário
     async function signOut() {
         await AsyncStorage.removeItem("token");
         setToken(null);
     }
-    
+
+    //  Consulta de quartos disponíveis
+    async function consultRooms(inicio: string, fim: string, quantidade: number) {
+        const res = await fetch(`${API_URL}/roomsAvailable`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({inicio, fim, quantidade}),
+        });
+
+        if (!res.ok) {
+            const error = await res.json().catch(() => null);
+            throw new Error(error?.erro || "Falha na consulta de quartos!");
+        }
+        return await res.json();
+    }
+
+    //  Adicionar reserva ao carrinho
+    const addReservation = (reservation: CartReservation) => {
+        
+    }
+
+    const cleartCart = () => {
+
+    }
     
     const value = useMemo(() => (
         {
@@ -85,7 +129,11 @@ const AuthProvider = ({ children } : { children: React.ReactNode }) => {
             isLoading,
             signIn,
             signUp,
-            signOut
+            signOut,
+            consultRooms,
+            cartReservations,
+            addReservation,
+            cleartCart
         }
     ), [token, isLoading]);
 

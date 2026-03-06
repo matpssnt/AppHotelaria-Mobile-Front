@@ -45,7 +45,6 @@ const RenderDatePicker = ({ onSelectedChange, visible, onClose }: Props) => {
                         isGregorian={true} 
                         minimumDate={today}
                         onDateChange={handleChange}
-                        onSelectedChange={handleChange}
                         style={{ borderRadius: 15 }}
                     />
                     

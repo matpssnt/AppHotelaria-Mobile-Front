@@ -5,6 +5,7 @@ import {
     ImageSourcePropType,
     StyleSheet,
     Text,
+    TouchableOpacity,
     View,
 } from "react-native";
 import { global } from "./styles";
@@ -26,7 +27,7 @@ type Props = {
 
 const { width, height } = Dimensions.get("window");
 
-const RoomCard = ({ image, label, description, icon }: Props) => {
+const RoomCard = ({ image, label, description, icon, onPressReserve }: Props) => {
   return (
     <View style={[global.content, {marginBottom: 15}]}>
       {!!image && (
@@ -76,6 +77,13 @@ const RoomCard = ({ image, label, description, icon }: Props) => {
 
             </View>
 
+            <TouchableOpacity
+                style={[global.primaryButton, { paddingVertical: height * 0.02 } ]}
+                onPress={onPressReserve}
+            >
+              <Text style={[global.label , { color: '#fff' }]}>Realizar pedido</Text>
+
+            </TouchableOpacity>
         </View>
 
     </View>
