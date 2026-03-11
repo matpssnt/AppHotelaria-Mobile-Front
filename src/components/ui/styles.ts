@@ -28,7 +28,7 @@ export const global = StyleSheet.create({
         textAlign: "center"
     },
     content: {
-        width: width * 0.96,
+        width: width * 0.87,
         backgroundColor: "#deeef5ff",
         borderRadius: 10,
         alignSelf: 'center',

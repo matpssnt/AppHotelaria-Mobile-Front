@@ -24,8 +24,8 @@ type AuthContextProps = {
 
     cartReservations: CartReservation[];
     addReservation: (reservation: CartReservation) => void;
-    //Remover um item específico do carrinho
-    cleartCart: () => void;
+    removeReservation: (index: number) => void;
+    clearCart: () => void;
     //Criar a ordem de pedido com as reservas => Forma de pagamento e adicional
 }
 
@@ -36,13 +36,16 @@ const AuthProvider = ({ children } : { children: React.ReactNode }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [cartReservations, setCartReservations] = useState<CartReservation[]>([]);
     
-
+    // Carrehar token e dados do carrinho local ao abrir o app
     useEffect(() => {
         (async () => {
             
             try {
                 const stored = await AsyncStorage.getItem("token");
+                const storedCart = await AsyncStorage.getItem("cartReservations");
+
                 if (stored) setToken(stored);
+                if (storedCart) setCartReservations(JSON.parse(storedCart));
             }
 
             finally {
@@ -51,6 +54,11 @@ const AuthProvider = ({ children } : { children: React.ReactNode }) => {
 
         })();
     }, []);
+
+
+    useEffect(() => {
+        AsyncStorage.setItem("cartReservations", JSON.stringify(cartReservations));
+    }, [cartReservations]);
 
 
     //  Login do usuário
@@ -114,13 +122,19 @@ const AuthProvider = ({ children } : { children: React.ReactNode }) => {
         return await res.json();
     }
 
-    //  Adicionar reserva ao carrinho
+    //  Adicionar localmente um item ao carrinho
     const addReservation = (reservation: CartReservation) => {
-        
+        setCartReservations((propsRoomReserved) => [...propsRoomReserved, reservation]);
     }
 
-    const cleartCart = () => {
+    // Remover localmente um item em específico do carrinho
+    const removeReservation = (index: number) => {
+        setCartReservations((propsRoomReserved) => propsRoomReserved.filter((_, i) => i !== index));
+    }
 
+    // Remover localmente todos os objetos do carrinho
+    const clearCart = () => {
+        setCartReservations([]);
     }
     
     const value = useMemo(() => (
@@ -133,9 +147,10 @@ const AuthProvider = ({ children } : { children: React.ReactNode }) => {
             consultRooms,
             cartReservations,
             addReservation,
-            cleartCart
+            removeReservation,
+            clearCart
         }
-    ), [token, isLoading]);
+    ), [token, isLoading, cartReservations]);
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

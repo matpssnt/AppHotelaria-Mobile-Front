@@ -41,7 +41,7 @@ const RenderExplorer = () => {
             fim: checkOut,
             quantidade: qntGuests
         });
-        Alert.alert("Sucesso!", "Reserva adicionada ao carrinho.");
+        Alert.alert("Sucesso!", "Quarto adicionado ao carrinho.");
     };
 
     const handleSearchRooms = async () => {
@@ -72,9 +72,17 @@ const RenderExplorer = () => {
     return (
         <AuthContainer>
             {/* children */}
-            <View style={{display: 'flex', justifyContent: 'center'}}>
+            <View style={{flex: 1, paddingHorizontal: width * 0.01}}>
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    marginBottom: height * 0.03,
+                    gap: width * 0.02
+                }}
+                >
 // Check-in
-                <View style={{display: 'flex', flexDirection: 'column'}}>
+                <View style={{ flex: 0 }}>
                     <TouchableOpacity onPress={() => setShowCheckIn(true)}>
                         <View style={{width: width * 0.42}}>
                             <TextField
@@ -97,7 +105,7 @@ const RenderExplorer = () => {
                     
                 </View>
 // Check-out
-                <View style={{ display: 'flex', flexDirection: 'column'}}>
+                <View style={{ flex: 1}}>
                     <TouchableOpacity onPress={() => setShowCheckOut(true)}>
                         <View style={{width: width * 0.42}}>
                             <TextField
@@ -116,6 +124,7 @@ const RenderExplorer = () => {
                             setCheckOut(date);
                         }}
                     />
+                </View>
                 </View>
 
 // InputSpin
@@ -181,8 +190,7 @@ const RenderExplorer = () => {
                                     }}
                                     description={{
                                         title: "Descrição do quarto",
-                                        text: `${room.qnt_cama_casal} cama(s) de casal \n
-                                        ${room.qnt_cama_solteiro} cama(s) de solteiro \n`,
+                                        text: ` ${room.qnt_cama_casal} cama(s) de casal\n ${room.qnt_cama_solteiro} cama(s) de solteiro \n`,
                                         price: Number(room.preco),
                                     }}
                                     onPressReserve={() => handleOpenReserve(room)}

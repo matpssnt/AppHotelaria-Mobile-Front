@@ -1,12 +1,12 @@
 import { FontAwesome5, FontAwesome6, MaterialIcons } from "@expo/vector-icons";
 import {
-    Dimensions,
-    Image,
-    ImageSourcePropType,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { global } from "./styles";
 
@@ -27,74 +27,88 @@ type Props = {
 
 const { width, height } = Dimensions.get("window");
 
-const RoomCard = ({ image, label, description, icon, onPressReserve }: Props) => {
+const RoomCard = ({
+  image,
+  label,
+  description,
+  icon,
+  onPressReserve,
+}: Props) => {
   return (
-    <View style={[global.content, {marginBottom: 15}]}>
+    <View style={[global.content, { marginBottom: 15 }]}>
       {!!image && (
-          <Image style={style.image} source={image} resizeMode="cover" />
+        <Image style={style.image} source={image} resizeMode="cover" />
       )}
 
-        <View style={{width: '100%'}}>
+      <View style={{ width: "100%" }}>
+        {!!label && (
+          <Text
+            style={{
+              fontSize: 23,
+              textAlign: 'center',
+              fontWeight: "600",
+              marginTop: height * 0.01,
+              marginBottom: height * -0.001,
+              color: "#374151",
+            }}
+          >
+            {label}
+          </Text>
+        )}
 
-            {!!label && (
-              <Text
-                style={{
-                  fontSize: 23,
-                  fontWeight: "600",
-                  marginBottom: height * 0.01,
-                  color: "#374151",
-                }}
-              >
-                {label}
-              </Text>
-            )}
-
-            <View style={style.container}>
-              
-              {!!icon && (
-                  <View>
-                    {icon.lib === "MaterialIcons" && (
-                      <MaterialIcons name={icon.name} size={23} color="#001f52ff" />
-                    )}
-                    {icon.lib === "FontAwesome5" && (
-                      <FontAwesome5 name={icon.name} size={23} color="#001f52ff" />
-                    )}
-                    {icon.lib === "FontAwesome6" && (
-                      <FontAwesome6 name={icon.name} size={23} color="#001f52ff" />
-                    )}
-                  </View>
+        <View style={style.container}>
+          {!!icon && (
+            <View>
+              {icon.lib === "MaterialIcons" && (
+                <MaterialIcons name={icon.name} size={23} color="#001f52ff" />
               )}
-
-              {!!description && (
-                <View style={{flex: 1}}>
-                  {!!description.title && (
-                    <Text style={global.label}>{description.title}</Text>
-                  )}
-                  <Text style={style.text}>{description.text}</Text>
-                  <Text style={style.price}>R$ {description.price.toFixed(2)}/noite</Text>
-                </View>
+              {icon.lib === "FontAwesome5" && (
+                <FontAwesome5 name={icon.name} size={23} color="#001f52ff" />
               )}
-
+              {icon.lib === "FontAwesome6" && (
+                <FontAwesome6 name={icon.name} size={23} color="#001f52ff" />
+              )}
             </View>
+          )}
 
-            <TouchableOpacity
-                style={[global.primaryButton, { paddingVertical: height * 0.02 } ]}
-                onPress={onPressReserve}
-            >
-              <Text style={[global.label , { color: '#fff' }]}>Realizar pedido</Text>
-
-            </TouchableOpacity>
+          {!!description && (
+            <View style={{ flex: 1 }}>
+              {!!description.title && (
+                <Text style={global.label}>{description.title}</Text>
+              )}
+              <Text style={style.text}>{description.text}</Text>
+              <Text style={style.price}>
+                R$ {description.price.toFixed(2)}/noite
+              </Text>
+            </View>
+          )}
         </View>
 
+        <TouchableOpacity
+          style={{
+              backgroundColor: 'rgba(7, 4, 43, 0.94)',
+              height: height * 0.079,
+              width: width * 0.81,
+              padding: 18,
+              borderRadius: 12,
+              marginTop: 20,
+              alignItems: 'center',
+              paddingVertical: height * 0.02,
+
+          }}
+          onPress={onPressReserve}
+        >
+          <Text style={[global.label, { color: "#fff" }]}>Realizar pedido</Text>
+        </TouchableOpacity>
+      </View>
     </View>
-    
   );
 };
 
 const style = StyleSheet.create({
   image: {
     height: height * 0.27,
-    width: "auto",
+    width: width * 0.8,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOpacity: 0.05,
@@ -120,12 +134,15 @@ const style = StyleSheet.create({
     fontSize: 15,
     lineHeight: 22,
     marginBottom: 8,
-    color: '#4b5563'
+    color: "#4b5563",
+    textAlign: 'left'
   },
   price: {
     fontSize: 17,
+    padding: 8,
     fontWeight: "700",
     color: "#020155ff",
+    textAlign: 'left'
   },
 });
 
